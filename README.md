@@ -1,5 +1,7 @@
 # Urban Footprints
 
+**GitHub Pages address:** https://brianbalzar.github.io/urban-footprints/ (available after Pages deployment completes).
+
 Compare international urban regions on the map of a familiar U.S. metro, preserving geographic scale. Built for Brian Balzar.
 
 ## Features
