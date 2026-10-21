@@ -8,9 +8,9 @@ Compare international urban regions on the map of a familiar U.S. metro, preserv
 
 - Select any of the 30 largest U.S. metropolitan areas, ranked using July 2025 Census estimates.
 - Search 1,285 international functional regions by city, country, or three-letter country code.
-- Add up to eight independently colored overlays; drag them or use keyboard-accessible 2 km positioning buttons.
+- Add up to eight independently colored overlays; drag them or use keyboard-accessible positioning buttons (1 mile per step by default).
 - Show/hide each region and adjust fill opacity. Center overlays and fit all visible boundaries.
-- Compare population, regional area, density, and regional area per resident. Switch between square kilometers and square miles.
+- Compare population, regional area, density, and regional area per resident. Miles, square miles, and square feet are the defaults; metric is optional.
 - Find international regions with similar populations using the same 2015 population definition as the map.
 - Copy a link that retains the base, selected regions, positions, units, opacity, visibility, and map view.
 - Export a high-resolution PNG of the current map with a legend, comparison statistics, distance scale, and source notes. Preview the image, then click **Download PNG**.

@@ -15,8 +15,8 @@ export function destination(origin,[d,t]){
 }
 export function walk(c,fn){return typeof c[0]==='number'?fn(c):c.map(v=>walk(v,fn));}
 export function transplant(geometry,origin,target){return {type:geometry.type,coordinates:walk(geometry.coordinates,p=>destination(target,offset(origin,p)))}}
-export function density(region,units='km'){return region.population/region.area*(units==='mi'?2.589988110336:1)}
-export function areaIn(region,units='km'){return region.area/(units==='mi'?2.589988110336:1)}
-export function landPerPerson(region){return region.area*1e6/region.population}
+export function density(region,units='mi'){return region.population/region.area*(units==='mi'?2.589988110336:1)}
+export function areaIn(region,units='mi'){return region.area/(units==='mi'?2.589988110336:1)}
+export function landPerPerson(region,units='mi'){return region.area*1e6/region.population/(units==='mi'?.09290304:1)}
 export function similarity(a,b){return Math.abs(Math.log(a.population/b.population))}
 export function normalizedName(text){return text.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[’'`-]/g,'').toLowerCase()}

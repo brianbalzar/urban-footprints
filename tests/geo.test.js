@@ -12,7 +12,8 @@ test('transplanted points retain radial distances across latitude changes',()=>{
 test('area and density unit conversion preserve population',()=>{
  const r={population:7077558,area:19826};
  for(const units of ['km','mi'])assert.ok(Math.abs(areaIn(r,units)*density(r,units)-r.population)<.001);
- assert.equal(landPerPerson(r),r.area*1e6/r.population);
+ assert.equal(landPerPerson(r,'km'),r.area*1e6/r.population);
+ assert.ok(Math.abs(landPerPerson(r,'mi')*.09290304-landPerPerson(r,'km'))<1e-8);
  assert.equal(similarity(r,r),0);
 });
 test('all 30 Census choices map to known U.S. functional regions',()=>{

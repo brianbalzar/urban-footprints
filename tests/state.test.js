@@ -9,3 +9,8 @@ test('untrusted URL state cannot inject colors, duplicate IDs or invalid locatio
  const parsed=decodeState(hash,catalog);assert.equal(parsed.layers.length,1);assert.equal(parsed.layers[0].color,PALETTE[0]);assert.equal(parsed.layers[0].position,null);assert.equal(parsed.layers[0].opacity,.75);assert.equal(parsed.view.zoom,16);
 });
 test('invalid URL state falls back safely',()=>{for(const hash of ['','%ZZ','#{}',encodeState({base:'unknown'})])assert.equal(decodeState(hash,catalog),null)});
+
+test('legacy metric links migrate to imperial while new explicit metric choices survive',()=>{
+ const legacy='#'+encodeURIComponent(JSON.stringify({v:1,base:'us-dallas',units:'km',layers:[]}));assert.equal(decodeState(legacy,catalog).units,'mi');
+ assert.equal(decodeState(encodeState({base:'us-dallas',units:'km',layers:[]}),catalog).units,'km');
+});

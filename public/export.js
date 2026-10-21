@@ -28,10 +28,10 @@ export async function renderPNG({map,regions,baseName,units,baseNote=''}){
  // The legend provides unambiguous labels, avoiding collisions on the map.
  text(ctx,'↑ N',20,27,'bold 12px Arial','#40584a');
  const center=map.getCenter(),left=map.containerPointToLatLng([25,mh-40]),right=map.containerPointToLatLng([125,mh-40]);
- const distance=left.distanceTo(right),unit=units==='mi'?1609.344:1000,maxUnits=distance/unit;
+ const distance=left.distanceTo(right),scaleUnit=units==='mi'?(distance<402.336?'ft':'mi'):'km',unit=scaleUnit==='ft'?.3048:scaleUnit==='mi'?1609.344:1000,maxUnits=distance/unit;
  const magnitude=10**Math.floor(Math.log10(maxUnits)),nice=[1,2,5,10].filter(n=>n*magnitude<=maxUnits).pop()*magnitude;
  const pixels=100*nice/maxUnits;
- ctx.fillStyle='#ffffffed';ctx.fillRect(16,mh-65,145,48);ctx.strokeStyle='#40584a';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(25,mh-40);ctx.lineTo(25+pixels,mh-40);ctx.moveTo(25,mh-45);ctx.lineTo(25,mh-35);ctx.moveTo(25+pixels,mh-45);ctx.lineTo(25+pixels,mh-35);ctx.stroke();text(ctx,fmt.format(nice)+' '+units,25,mh-49,'11px Arial');
+ ctx.fillStyle='#ffffffed';ctx.fillRect(16,mh-65,145,48);ctx.strokeStyle='#40584a';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(25,mh-40);ctx.lineTo(25+pixels,mh-40);ctx.moveTo(25,mh-45);ctx.lineTo(25,mh-35);ctx.moveTo(25+pixels,mh-45);ctx.lineTo(25+pixels,mh-35);ctx.stroke();text(ctx,fmt.format(nice)+' '+scaleUnit,25,mh-49,'11px Arial');
  text(ctx,'© OpenStreetMap contributors',Math.max(175,mw-205),mh-12,'10px Arial','#526b59');
  if(!tilesDrawn||tilesMissing){ctx.fillStyle='#fff4d9';ctx.fillRect(15,45,Math.min(405,mw-30),30);text(ctx,'Some street tiles unavailable; outlines remain accurate.',25,64,'11px Arial','#836733')}
  ctx.restore();
@@ -43,7 +43,7 @@ export async function renderPNG({map,regions,baseName,units,baseNote=''}){
   text(ctx,(r.population/1e6).toFixed(2)+'M people',x,y,'bold 15px Arial','#405b46');
   text(ctx,fmt.format(Math.round(areaIn(r,units)))+' '+units+'²',x+155,y,'bold 15px Arial','#405b46');y+=20;
   text(ctx,fmt.format(Math.round(density(r,units)))+' people / '+units+'²',x,y,'11px Arial','#6f806c');y+=17;
-  text(ctx,fmt.format(Math.round(landPerPerson(r)))+' m² of region per resident',x,y,'11px Arial','#6f806c');y+=19;
+  text(ctx,fmt.format(Math.round(landPerPerson(r,units)))+` ${units==='mi'?'ft²':'m²'} of region per resident`,x,y,'11px Arial','#6f806c');y+=19;
   if(r.isBase){ctx.font='10px Arial';ctx.fillStyle='#87927f';y=wrap(ctx,'Source region: '+r.name,x,y,w,14)}
   ctx.strokeStyle='#dce3d5';ctx.beginPath();ctx.moveTo(x,y+2);ctx.lineTo(x+w,y+2);ctx.stroke();y+=25;
  }
